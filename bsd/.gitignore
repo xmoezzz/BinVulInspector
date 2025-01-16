@@ -1,0 +1,5 @@
+.venv/
+binary/libuv/
+__pycache__/
+/*.whl
+*.db

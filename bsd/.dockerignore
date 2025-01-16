@@ -1,0 +1,8 @@
+.git/
+binary/
+#corpus/
+models/
+result/
+__pycache__/
+README.bsd.md
+README.md
