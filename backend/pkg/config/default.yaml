@@ -1,0 +1,31 @@
+debugMode: true
+devProxy:
+gateway:
+workdir: scs-workdir
+insecureSkipVerify: true
+
+http:
+  address: 0.0.0.0:8080
+  readTimeout: 1m
+  writeTimeout: 1m
+  idleTimeout: 1m
+  maxBytesReader: 2147483648 # 2^31
+
+task:
+  timeToLive: 4320h # 6*30*24 半年
+  concurrent: 3
+  scaTimeout: 1h30m
+  sastTimeout: 1h30m
+  bhaTimeout: 1h30m
+
+mongodb:
+  uri:
+
+minio:
+  endpoint:
+  accessKeyId:
+  secretAccessKey:
+  useSSL: false
+
+nats:
+  url:

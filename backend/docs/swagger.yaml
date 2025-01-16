@@ -1,0 +1,744 @@
+basePath: /scs/api/v1
+definitions:
+  dto.BhaModelItem:
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      id:
+        type: string
+      is_builtin:
+        description: 是否是内置
+        type: boolean
+      md5:
+        type: string
+      name:
+        description: 模型名称
+        type: string
+      path:
+        description: 模型路径
+        type: string
+      type:
+        description: 模型类型 ssfs,bsd
+        type: string
+    type: object
+  dto.CreateRes:
+    properties:
+      id:
+        type: string
+    type: object
+  dto.ListResponse-dto_BhaModelItem:
+    properties:
+      count:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/dto.BhaModelItem'
+        type: array
+    type: object
+  dto.ListResponse-dto_TaskListItem:
+    properties:
+      count:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/dto.TaskListItem'
+        type: array
+    type: object
+  dto.ListResponse-models_BhaFunc:
+    properties:
+      count:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/models.BhaFunc'
+        type: array
+    type: object
+  dto.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      err_message:
+        type: string
+    type: object
+  dto.TaskCreateRes:
+    properties:
+      task_id:
+        type: string
+    type: object
+  dto.TaskDetail:
+    properties:
+      created_at:
+        type: string
+      debug_message:
+        items:
+          type: string
+        type: array
+      desc:
+        type: string
+      detail:
+        properties:
+          bha:
+            $ref: '#/definitions/models.BhaParams'
+          sast:
+            $ref: '#/definitions/models.SastParams'
+          sca:
+            $ref: '#/definitions/models.ScaParams'
+        type: object
+      detect_method:
+        type: string
+      err_message:
+        items:
+          type: string
+        type: array
+      file_hash:
+        type: string
+      file_path:
+        type: string
+      file_size:
+        type: integer
+      modified_at:
+        type: string
+      name:
+        type: string
+      source:
+        type: string
+      status:
+        type: string
+      task_id:
+        type: string
+      types:
+        items:
+          type: string
+        type: array
+    type: object
+  dto.TaskListItem:
+    properties:
+      created_at:
+        type: string
+      debug_message:
+        items:
+          type: string
+        type: array
+      desc:
+        type: string
+      detail:
+        properties:
+          bha:
+            $ref: '#/definitions/models.BhaParams'
+          sast:
+            $ref: '#/definitions/models.SastParams'
+          sca:
+            $ref: '#/definitions/models.ScaParams'
+        type: object
+      detect_method:
+        type: string
+      err_message:
+        items:
+          type: string
+        type: array
+      file_hash:
+        type: string
+      file_path:
+        type: string
+      file_size:
+        type: integer
+      modified_at:
+        type: string
+      name:
+        type: string
+      source:
+        type: string
+      status:
+        type: string
+      task_id:
+        type: string
+      types:
+        items:
+          type: string
+        type: array
+    type: object
+  models.BhaFunc:
+    properties:
+      addr:
+        description: 函数地址
+        type: string
+      file_arch:
+        description: 二进制文件架构
+        type: string
+      file_id:
+        description: 文件 id
+        type: string
+      file_path:
+        description: 文件路径
+        type: string
+      fname:
+        description: 检测文件函数名称
+        type: string
+      id:
+        description: id
+        type: string
+      task_id:
+        description: 任务id
+        type: string
+    type: object
+  models.BhaParams:
+    properties:
+      algorithm:
+        description: 检测算法 sfs,ssfs,bsd
+        type: string
+      detection_method:
+        description: 检测方式 fast, intelligent
+        type: string
+      model_id:
+        description: 模型id
+        type: string
+    type: object
+  models.SastParams:
+    properties:
+      extra_params:
+        items:
+          type: string
+        type: array
+      lang:
+        type: string
+      rule_range_ids:
+        description: 规则检测范围id
+        items:
+          type: string
+        type: array
+      rules:
+        description: 自定义规则
+        items:
+          type: string
+        type: array
+    type: object
+  models.ScaParams:
+    properties:
+      --optional-feature:
+        items:
+          type: string
+        type: array
+      reachability_analysis:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: This is an bin-vul-inspector server.
+  title: bin-vul-inspector Server API
+  version: "1.0"
+paths:
+  /bha/model:
+    get:
+      parameters:
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - default: 20
+        description: 页大小
+        in: query
+        minimum: 1
+        name: page_size
+        required: true
+        type: integer
+      - description: 模糊查询，名称
+        in: query
+        name: name
+        type: string
+      - collectionFormat: multi
+        description: 模型类型
+        in: query
+        items:
+          enum:
+          - ssfs
+          - bsd
+          type: string
+        name: types
+        type: array
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ListResponse-dto_BhaModelItem'
+              type: object
+      summary: 模型列表
+      tags:
+      - BhaModel
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: 模型名称
+        in: formData
+        name: name
+        required: true
+        type: string
+      - default: ssfs
+        description: 模型类型
+        enum:
+        - ssfs
+        - bsd
+        in: formData
+        name: type
+        required: true
+        type: string
+      - description: 文件
+        in: formData
+        name: upload_file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CreateRes'
+              type: object
+      summary: 上传模型
+      tags:
+      - BhaModel
+  /bha/model/{model_id}:
+    delete:
+      description: 删除模型
+      parameters:
+      - description: model_id
+        in: path
+        name: model_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Response'
+      summary: 删除模型
+      tags:
+      - BhaModel
+    get:
+      description: 模型详情
+      parameters:
+      - description: model_id
+        in: path
+        name: model_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.BhaModelItem'
+              type: object
+      summary: 模型详情
+      tags:
+      - BhaModel
+  /bha/task/{task_id}/file/func_results:
+    get:
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - default: 20
+        description: 页大小
+        in: query
+        minimum: 1
+        name: page_size
+        required: true
+        type: integer
+      - description: func id
+        in: query
+        name: func_id
+        required: true
+        type: string
+      - description: topN
+        in: query
+        name: top_n
+        type: string
+      - description: 关键字查询
+        in: query
+        name: q
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ListResponse-models_BhaFunc'
+              type: object
+      summary: func result 函数相似性对比结果
+      tags:
+      - BhaTask
+  /bha/task/{task_id}/file/funcs:
+    get:
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - default: 20
+        description: 页大小
+        in: query
+        minimum: 1
+        name: page_size
+        required: true
+        type: integer
+      - description: 关键字查询
+        in: query
+        name: q
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ListResponse-models_BhaFunc'
+              type: object
+      summary: func 检测文件函数列表
+      tags:
+      - BhaTask
+  /bha/task/{task_id}/report:
+    get:
+      description: 获取报告
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+      summary: 获取报告
+      tags:
+      - BhaTask
+  /tasks:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - default: 1
+        description: 页码
+        example: 1
+        in: query
+        minimum: 1
+        name: page
+        required: true
+        type: integer
+      - default: 20
+        description: 页大小
+        example: 20
+        in: query
+        minimum: 1
+        name: page_size
+        required: true
+        type: integer
+      - description: 任务模式
+        enum:
+        - bha
+        in: query
+        name: type
+        type: string
+      - collectionFormat: multi
+        description: 任务id
+        in: query
+        items:
+          type: string
+        name: task_ids
+        type: array
+      - description: 名称
+        in: query
+        name: name
+        type: string
+      - description: 来源
+        enum:
+        - web
+        in: query
+        name: source
+        type: string
+      - collectionFormat: multi
+        description: 任务状态
+        in: query
+        items:
+          enum:
+          - queuing
+          - processing
+          - finished
+          - failed
+          - terminated
+          type: string
+        name: statuses
+        type: array
+      - description: 开始时间
+        in: query
+        name: start_at
+        type: string
+      - description: 结束时间
+        in: query
+        name: end_at
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/dto.ListResponse-dto_TaskListItem'
+                  - properties:
+                      list:
+                        items:
+                          allOf:
+                          - $ref: '#/definitions/dto.TaskListItem'
+                          - properties:
+                              status:
+                                type: string
+                            type: object
+                        type: array
+                    type: object
+              type: object
+      summary: 任务列表
+      tags:
+      - Task
+    post:
+      consumes:
+      - multipart/form-data
+      description: |
+        #### mode为上传扫描时(默认):
+        - types,必填参数
+        - extra,按type分别校验
+      parameters:
+      - description: 任务模式 0,上传扫描
+        enum:
+        - 0
+        in: formData
+        name: mode
+        required: true
+        type: integer
+      - description: 任务名称
+        in: formData
+        name: name
+        type: string
+      - description: 描述
+        in: formData
+        name: desc
+        type: string
+      - default: web
+        description: 来源
+        enum:
+        - web
+        in: formData
+        name: source
+        type: string
+      - collectionFormat: multi
+        description: 任务模式
+        in: formData
+        items:
+          enum:
+          - bha
+          type: string
+        name: types
+        required: true
+        type: array
+      - description: 文件
+        in: formData
+        name: upload_file
+        type: file
+      - default: '{"bha":{"detection_method": "fast", "algorithm":"SFS","model_id":
+          ""}}'
+        description: 任务配置(默认值仅方便swagger中输入)
+        in: formData
+        name: extra
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.TaskCreateRes'
+              type: object
+      summary: 创建扫描任务
+      tags:
+      - Task
+  /tasks/{task_id}:
+    delete:
+      description: 删除任务，以及相应数据
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Response'
+      summary: 删除任务
+      tags:
+      - Task
+    get:
+      description: 任务详情
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.Response'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/dto.TaskDetail'
+                  - properties:
+                      status:
+                        type: string
+                    type: object
+              type: object
+      summary: 任务详情
+      tags:
+      - Task
+  /tasks/{task_id}/{type}/asm_file:
+    get:
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      - description: type
+        in: path
+        name: type
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 任务反汇编文件
+      tags:
+      - Task
+  /tasks/{task_id}/{type}/log:
+    get:
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      - description: type
+        in: path
+        name: type
+        required: true
+        type: string
+      - description: skip
+        in: query
+        name: skip
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 任务日志文件
+      tags:
+      - Task
+  /tasks/{task_id}/terminate:
+    post:
+      description: 中止任务
+      parameters:
+      - description: task_id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Response'
+      summary: 中止任务
+      tags:
+      - Task
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

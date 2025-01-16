@@ -1,0 +1,16 @@
+---
+
+debugMode: true
+devProxy:
+gateway: http://127.0.0.1:8080 # dev调试时，指定漏洞服务所在地址。生产环境时，指向服务所在网关。
+
+mongodb:
+  uri: mongodb://SCS:ahSAJD9xSADq9812jd@mongodb:27017/scs_result
+
+minio:
+  endpoint: minio:9000
+  accessKeyId: minio
+  secretAccessKey: Jqm&r&f3UkNIv67U
+
+nats:
+  url: nats://2rXa%2A2j%26iSQBIj%23i@nats:4222
