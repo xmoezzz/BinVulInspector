@@ -1,0 +1,114 @@
+{
+	"id": "4556922",
+	"name": "scs",
+	"font_family": "iconfont",
+	"css_prefix_text": "icon-",
+	"description": "",
+	"glyphs": [
+		{
+			"icon_id": "19476658",
+			"name": "create-task",
+			"font_class": "create-task",
+			"unicode": "e698",
+			"unicode_decimal": 59032
+		},
+		{
+			"icon_id": "2486601",
+			"name": "上传更新",
+			"font_class": "shangchuangengxin",
+			"unicode": "e60c",
+			"unicode_decimal": 58892
+		},
+		{
+			"icon_id": "15550145",
+			"name": "create-test-task",
+			"font_class": "create-test-task",
+			"unicode": "e614",
+			"unicode_decimal": 58900
+		},
+		{
+			"icon_id": "8802650",
+			"name": "对比分析",
+			"font_class": "duibifenxi",
+			"unicode": "e64e",
+			"unicode_decimal": 58958
+		},
+		{
+			"icon_id": "24589034",
+			"name": "date-6",
+			"font_class": "date-6",
+			"unicode": "e734",
+			"unicode_decimal": 59188
+		},
+		{
+			"icon_id": "137912",
+			"name": "SVN",
+			"font_class": "svn",
+			"unicode": "e79b",
+			"unicode_decimal": 59291
+		},
+		{
+			"icon_id": "431778",
+			"name": "git",
+			"font_class": "git",
+			"unicode": "e708",
+			"unicode_decimal": 59144
+		},
+		{
+			"icon_id": "34452872",
+			"name": "format-zip",
+			"font_class": "format-zip",
+			"unicode": "e82d",
+			"unicode_decimal": 59437
+		},
+		{
+			"icon_id": "27253681",
+			"name": "知识库",
+			"font_class": "zhishiku",
+			"unicode": "e615",
+			"unicode_decimal": 58901
+		},
+		{
+			"icon_id": "8081527",
+			"name": "user-manage",
+			"font_class": "user-manage",
+			"unicode": "e6aa",
+			"unicode_decimal": 59050
+		},
+		{
+			"icon_id": "9684043",
+			"name": "规则",
+			"font_class": "rules",
+			"unicode": "e60a",
+			"unicode_decimal": 58890
+		},
+		{
+			"icon_id": "10944074",
+			"name": "system-manage-16",
+			"font_class": "system-manage-",
+			"unicode": "e643",
+			"unicode_decimal": 58947
+		},
+		{
+			"icon_id": "20599747",
+			"name": "menu-docker-config",
+			"font_class": "menu-docker-config",
+			"unicode": "e613",
+			"unicode_decimal": 58899
+		},
+		{
+			"icon_id": "38383149",
+			"name": "system-manage",
+			"font_class": "system-manage",
+			"unicode": "e624",
+			"unicode_decimal": 58916
+		},
+		{
+			"icon_id": "40067707",
+			"name": "source-code",
+			"font_class": "source-code",
+			"unicode": "ea33",
+			"unicode_decimal": 59955
+		}
+	]
+}

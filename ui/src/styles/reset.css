@@ -1,0 +1,33 @@
+:root {
+	--primary-color: blue;
+
+	--el-text-info: #666;
+	--el-color-critical: #c9474b;
+	--el-color-high: #f46e73;
+	--el-color-medium: #fcd595;
+	--el-color-low: #68a2eb;
+	--el-color-unknown: #aa8eee;
+	--el-color-secure: #73c693;
+
+	--info-background-color: rgb(247, 250, 254);
+}
+
+html,
+body,
+#app {
+	height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+ul {
+	list-style-type: none;
+}

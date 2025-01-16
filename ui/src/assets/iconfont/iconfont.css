@@ -1,0 +1,76 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4556922 */
+  src: url('iconfont.woff2?t=1727231805709') format('woff2'),
+       url('iconfont.woff?t=1727231805709') format('woff'),
+       url('iconfont.ttf?t=1727231805709') format('truetype'),
+       url('iconfont.svg?t=1727231805709#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-create-task:before {
+  content: "\e698";
+}
+
+.icon-shangchuangengxin:before {
+  content: "\e60c";
+}
+
+.icon-create-test-task:before {
+  content: "\e614";
+}
+
+.icon-duibifenxi:before {
+  content: "\e64e";
+}
+
+.icon-date-6:before {
+  content: "\e734";
+}
+
+.icon-svn:before {
+  content: "\e79b";
+}
+
+.icon-git:before {
+  content: "\e708";
+}
+
+.icon-format-zip:before {
+  content: "\e82d";
+}
+
+.icon-zhishiku:before {
+  content: "\e615";
+}
+
+.icon-user-manage:before {
+  content: "\e6aa";
+}
+
+.icon-rules:before {
+  content: "\e60a";
+}
+
+.icon-system-manage-:before {
+  content: "\e643";
+}
+
+.icon-menu-docker-config:before {
+  content: "\e613";
+}
+
+.icon-system-manage:before {
+  content: "\e624";
+}
+
+.icon-source-code:before {
+  content: "\ea33";
+}
+
